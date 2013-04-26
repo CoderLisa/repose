@@ -1,6 +1,9 @@
 package org.openrepose.components.apivalidator.filter;
 
 import com.rackspace.com.papi.components.checker.Validator;
+import com.rackspace.com.papi.components.checker.step.ErrorResult;
+import com.rackspace.com.papi.components.checker.step.MultiFailResult;
+import com.rackspace.com.papi.components.checker.step.Result;
 import com.rackspace.papi.commons.util.http.HttpStatusCode;
 import com.rackspace.papi.commons.util.http.OpenStackServiceHeader;
 import com.rackspace.papi.commons.util.http.header.HeaderValue;
@@ -8,12 +11,15 @@ import com.rackspace.papi.commons.util.http.header.HeaderValueImpl;
 import com.rackspace.papi.commons.util.servlet.http.MutableHttpServletRequest;
 import com.rackspace.papi.commons.util.servlet.http.MutableHttpServletResponse;
 import com.rackspace.papi.filter.logic.FilterDirector;
+import com.rackspace.papi.model.Filter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 import javax.servlet.FilterChain;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,5 +122,50 @@ public class ApiValidatorHandlerTest {
             verify(blowupValidator).validate(request, response, chain);
             assertEquals(HttpStatusCode.BAD_GATEWAY, director.getResponseStatus());
         }
+
+        @Test
+        public void shouldProvideHighestPrivilegeErrorMessageWhenMultiRoleMatch() {
+            List<ValidatorInfo> validators = new ArrayList<ValidatorInfo>();
+            validators.add(role1ValidatorInfo);
+            validators.add(role2ValidatorInfo);
+            validators.add(defaultValidatorInfo);
+
+            instance = new ApiValidatorHandler(defaultValidatorInfo, validators, true);
+            instance.setFilterChain(chain);
+
+            List<HeaderValue> roles = new ArrayList<HeaderValue>();
+            roles.add(new HeaderValueImpl("defaultrole"));
+            roles.add(new HeaderValueImpl("role1"));
+            roles.add(new HeaderValueImpl("role2"));
+
+            ErrorResult result = mock(ErrorResult.class);
+            when(result.valid()).thenReturn(false);
+            when(result.message()).thenReturn("DEFAULT");
+            when(result.code()).thenReturn(400);
+
+            ErrorResult resultRole1 = mock(ErrorResult.class);
+            when(resultRole1.valid()).thenReturn(false);
+            when(resultRole1.message()).thenReturn("ROLE1");
+            when(resultRole1.code()).thenReturn(401);
+
+            ErrorResult resultRole2 = mock(ErrorResult.class);
+            when(resultRole2.valid()).thenReturn(false);
+            when(resultRole2.message()).thenReturn("ROLE2");
+            when(resultRole2.code()).thenReturn(402);
+
+            when(defaultValidator.validate(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterChain.class))).thenReturn(result);
+            when(role1Validator.validate(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterChain.class))).thenReturn(resultRole1);
+            when(role2Validator.validate(any(HttpServletRequest.class), any(HttpServletResponse.class), any(FilterChain.class))).thenReturn(resultRole2);
+
+            when(request.getPreferredHeaderValues(eq(OpenStackServiceHeader.ROLES.toString()), any(HeaderValueImpl.class))).thenReturn(roles);
+
+            FilterDirector director = instance.handleRequest(request, response);
+
+            assertEquals(402, director.getResponseStatusCode());
+            assertEquals("ROLE2", director.getResponseMessageBody());
+        }
+
+
+
     }
 }
