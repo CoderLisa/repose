@@ -116,5 +116,23 @@ public class ApiValidatorHandlerTest {
             verify(blowupValidator).validate(request, response, chain);
             assertEquals(HttpStatusCode.BAD_GATEWAY, director.getResponseStatus());
         }
+
+        @Test
+        public void shouldAddDefaultValidatorAsLeastPriorityWhenMultiMatch() {
+            List<HeaderValue> roles = new ArrayList<HeaderValue>();
+            roles.add(new HeaderValueImpl("role1"));
+
+            List<ValidatorInfo> validators = new ArrayList<ValidatorInfo>();
+            validators.add(role1ValidatorInfo);
+            validators.add(role2ValidatorInfo);
+
+            instance = new ApiValidatorHandler(defaultValidatorInfo, validators, true);
+
+            List<ValidatorInfo> validatorsForRole = instance.getValidatorsForRole(roles);
+
+            assertEquals(validatorsForRole.get(0), defaultValidatorInfo);
+            assertEquals(validatorsForRole.get(1), role1ValidatorInfo);
+        }
+
     }
 }
