@@ -24,6 +24,11 @@ curl ${PATH_TO_ARTIFACT}/commons/utilities/${VERSION}/utilities-${VERSION}.jar -
 
 http://maven.research.rackspacecloud.com/content/repositories/releases/com/rackspace/cloud/services/clients/auth/2.8.0/
 
+curl ${PATH_TO_ARTIFACT}/external/os-auth-schemas/${VERSION}/os-auth-schemas-${VERSION}.jar -O
+curl ${PATH_TO_ARTIFACT}/external/rs-auth-schemas/${VERSION}/rs-auth-schemas-${VERSION}.jar -O
+
+
+
 #SERVICES
 curl ${PATH_TO_ARTIFACT}/services/rate-limiting-service/${VERSION}/rate-limiting-service-${VERSION}.jar -O
 
