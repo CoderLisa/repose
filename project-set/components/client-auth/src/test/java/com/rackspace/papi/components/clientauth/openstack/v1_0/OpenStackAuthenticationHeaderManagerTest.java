@@ -145,7 +145,7 @@ public class OpenStackAuthenticationHeaderManagerTest {
            assertTrue("has GROUPS header", filterDirector.requestHeaderManager().headersToAdd().containsKey(PowerApiHeader.GROUPS.toString()));
            assertTrue("has X_EXPIRATION header", filterDirector.requestHeaderManager().headersToAdd().containsKey(PowerApiHeader.X_EXPIRATION.toString()));
 
-           System.out.println(filterDirector.requestHeaderManager().headersToAdd().keySet());
+           System.out.println("got headers: " + filterDirector.requestHeaderManager().headersToAdd().keySet().toString());
 
         }
     }
