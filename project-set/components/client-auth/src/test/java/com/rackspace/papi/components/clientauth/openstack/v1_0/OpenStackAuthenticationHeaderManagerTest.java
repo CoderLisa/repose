@@ -139,6 +139,7 @@ public class OpenStackAuthenticationHeaderManagerTest {
        @Test
         public void shouldAddHeaders() {
            System.out.println("got headers: " + filterDirector.requestHeaderManager().headersToAdd().keySet().toString());
+           System.out.println("X_EXPIRATION is: " + PowerApiHeader.X_EXPIRATION.toString());
 
            assertTrue("has TENANT_NAME header", filterDirector.requestHeaderManager().headersToAdd().containsKey(OpenStackServiceHeader.TENANT_NAME.toString().toString()));
            assertTrue("has TENANT_ID header", filterDirector.requestHeaderManager().headersToAdd().containsKey(OpenStackServiceHeader.TENANT_ID.toString()));
