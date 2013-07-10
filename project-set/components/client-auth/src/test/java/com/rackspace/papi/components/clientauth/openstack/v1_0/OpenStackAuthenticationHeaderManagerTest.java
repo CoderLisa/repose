@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.datatype.DatatypeFactory;
 
@@ -94,7 +95,12 @@ public class OpenStackAuthenticationHeaderManagerTest {
 
          Token token = new Token();
          token.setId("518f323d-505a-4475-9cba-bc43cd1790-A");
-         token.setExpires(DatatypeFactory.newInstance().newXMLGregorianCalendar());
+
+         GregorianCalendar gcal = new GregorianCalendar();
+         token.setExpires(DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal));
+
+         System.out.println("token.getExpires() is " + token.getExpires().toString());
+
          TenantForAuthenticateResponse tenant = new TenantForAuthenticateResponse();
          tenant.setId("tenantId");
          tenant.setName("tenantName");
