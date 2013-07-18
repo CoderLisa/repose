@@ -1,7 +1,12 @@
 package framework
 
+import framework.client.http.SimpleHttpClient
+import framework.client.http.SimpleHttpResponse
 import framework.client.jmx.JmxClient
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.client.methods.HttpUriRequest
 import org.linkedin.util.clock.SystemClock
+import sun.net.www.http.HttpClient
 
 import static org.junit.Assert.fail
 import static org.linkedin.groovy.util.concurrent.GroovyConcurrentUtils.waitForCondition
@@ -9,6 +14,7 @@ import static org.linkedin.groovy.util.concurrent.GroovyConcurrentUtils.waitForC
 class ReposeValveLauncher implements ReposeLauncher {
 
     def boolean debugEnabled
+    def boolean waitOnStart
     def String reposeJar
     def String configDir
 
@@ -19,6 +25,8 @@ class ReposeValveLauncher implements ReposeLauncher {
     def int reposePort
 
     def JmxClient jmx
+    int jmxPort
+
     def int debugPort = 8011
     def classPaths =[]
 
@@ -29,12 +37,15 @@ class ReposeValveLauncher implements ReposeLauncher {
                         String reposeEndpoint,
                         String configDir,
                         int reposePort,
-                        int shutdownPort) {
+                        int shutdownPort,
+                        boolean debugEnabled = true
+    ) {
         this.configurationProvider = configurationProvider
         this.reposeJar = reposeJar
         this.reposeEndpoint = reposeEndpoint
         this.shutdownPort = shutdownPort
         this.configDir = configDir
+        this.debugEnabled = debugEnabled
     }
 
     @Override
@@ -48,7 +59,7 @@ class ReposeValveLauncher implements ReposeLauncher {
     }
 
     @Override
-    void start() {
+    void start(boolean waitOnStart = true, int waitTimeout = 30) {
 
         waitForCondition(clock, '5s', '1s', {
             killIfUp()
@@ -79,6 +90,21 @@ class ReposeValveLauncher implements ReposeLauncher {
         th.run()
         th.join()
 
+        if (waitOnStart) {
+            getWaitTilNon500(reposeEndpoint, waitTimeout)
+        }
+    }
+
+    def getWaitTilNon500(String endpoint = reposeEndpoint, int waitTimeout = 30) {
+        SimpleHttpClient httpClient = new SimpleHttpClient(endpoint)
+
+        waitForCondition(clock, "${waitTimeout}s", '1s') {
+            SimpleHttpResponse response = httpClient.doGet()
+            response.statusCode != 500
+        }
+    }
+
+    def waitTilFiltersInitialized() {
         def jmxUrl = "service:jmx:rmi:///jndi/rmi://localhost:${jmxPort}/jmxrmi"
 
         waitForCondition(clock, '60s', '1s') {
@@ -89,10 +115,6 @@ class ReposeValveLauncher implements ReposeLauncher {
         waitForCondition(clock, '60s', '1s', {
             isFilterChainInitialized()
         })
-
-        // TODO: improve on this.  embedding a sleep for now, but how can we ensure Repose is up and
-        // ready to receive requests without actually sending a request through (skews the metrics if we do)
-        //sleep(10000)
     }
 
     def nextAvailablePort() {
@@ -131,11 +153,6 @@ class ReposeValveLauncher implements ReposeLauncher {
         waitForCondition(clock, '25s', '1s', {
             !isUp()
         })
-    }
-
-    @Override
-    void enableDebug() {
-        this.debugEnabled = true
     }
 
     @Override

@@ -2,11 +2,9 @@ package framework
 
 interface ReposeLauncher {
 
-    void start();
+    void start(boolean waitOnStart, int waitTimeout);
 
     void stop();
-
-    void enableDebug()
 
     void applyConfigs(String[] configLocations)
 

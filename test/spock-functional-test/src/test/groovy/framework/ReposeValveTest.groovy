@@ -43,7 +43,6 @@ abstract class ReposeValveTest extends Specification {
                 properties.getProperty("repose.port").toInteger(),
                 properties.getProperty("repose.shutdown.port").toInteger()
         )
-        repose.enableDebug()
         reposeLogSearch = new ReposeLogSearch(logFile);
     }
 

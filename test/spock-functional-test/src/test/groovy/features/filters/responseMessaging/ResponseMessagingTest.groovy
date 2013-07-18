@@ -13,7 +13,7 @@ class ResponseMessagingTest extends ReposeValveTest {
         deproxy.addEndpoint(properties.getProperty("target.port").toInteger())
 
         repose.applyConfigs("features/filters/responsemessaging")
-        repose.start()
+        repose.start(true, 10)
     }
 
     def cleanupSpec() {
