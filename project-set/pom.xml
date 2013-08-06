@@ -248,6 +248,31 @@
             </dependencyManagement>
         </profile>
 
+
+        <profile>
+            <id>Apache HTTP Support</id>
+
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.httpcomponents</groupId>
+                        <artifactId>httpclient</artifactId>
+                        <version>4.2.5</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>commons-codec</groupId>
+                                <artifactId>commons-codec</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
         <profile>
             <id>Default JUL Logging Support</id>
 
