@@ -1,6 +1,7 @@
 package features.filters.translation
 import framework.ReposeValveTest
 import org.rackspace.gdeproxy.Deproxy
+import org.rackspace.gdeproxy.Handling
 import org.rackspace.gdeproxy.MessageChain
 
 /**
@@ -28,13 +29,33 @@ class DefectRegressionTest extends ReposeValveTest {
     def "when sending Content-Type on GET request with no body, translation should not fail"() {
 
         when: "User sends requests through repose"
-        MessageChain resp = deproxy.makeRequest(url: reposeEndpoint, method:"GET", headers:['Content-Type':'application/json'])
+        MessageChain resp = deproxy.makeRequest(url: reposeEndpoint, method:"GET", headers:['Content-Type':'application/json', 'x-rax-roles':'jawsome'])
 
         then: "Response code should be 200"
         resp.receivedResponse.code == "200"
-
     }
 
+    def "when sending Content-Type on GET request with a body, translation should not fail"() {
+
+        when: "User sends requests through repose"
+        MessageChain resp = deproxy.makeRequest(url: reposeEndpoint, method:"GET", headers:['Content-Type':'application/xml', 'x-rax-roles':'jawsome'], requestBody:"<foo></foo>")
+
+        then: "Response code should be 200"
+        resp.receivedResponse.code == "200"
+        Handling sentRequest = ((MessageChain) resp).getHandlings()[0]
+        sentRequest.getRequest().headers.contains("x-roles")
+    }
+
+    def "when sending GET request with no body, translation should not fail"() {
+
+        when: "User sends requests through repose"
+        MessageChain resp = deproxy.makeRequest(url: reposeEndpoint, method:"GET", headers:['x-rax-roles':'jawsome'])
+
+        then: "Response code should be 200"
+        resp.receivedResponse.code == "200"
+        Handling sentRequest = ((MessageChain) resp).getHandlings()[0]
+        sentRequest.getRequest().headers.contains("x-roles")
+    }
 
 
 }
