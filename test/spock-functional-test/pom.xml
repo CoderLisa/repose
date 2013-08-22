@@ -76,6 +76,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.rackspace.papi.external.testing</groupId>
+            <artifactId>test-glassfish-container</artifactId>
+            <version>2.8.3-SNAPSHOT</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -100,10 +106,12 @@
                 <filter.dir>${project.set.dir}/components/filter-bundle/target</filter.dir>
                 <filter.extensions.dir>${project.set.dir}/extensions/extensions-filter-bundle/target
                 </filter.extensions.dir>
+                <glassfish.jar.dir>${project.set.dir}/external/testing/glassfish-support</glassfish.jar.dir>
 
                 <repose.valve.jar>repose-valve.jar</repose.valve.jar>
                 <filter.ear>filter-bundle-*.ear</filter.ear>
                 <filter.extensions.ear>extensions-filter-bundle-*.ear</filter.extensions.ear>
+                <glassfish.jar>test-glassfish-container*jar</glassfish.jar>
 
                 <repose_port>8888</repose_port>
                 <repose_jmx_port>9001</repose_jmx_port>
@@ -116,6 +124,7 @@
                 <repose.home>${project.build.directory}/repose_home</repose.home>
                 <repose.config.directory>${repose.home}/configs</repose.config.directory>
                 <repose.valve.jar.location>${repose.home}/${repose.valve.jar}</repose.valve.jar.location>
+                <repose.glassfish.jar.location>${repose.glassfish.jar.location}</repose.glassfish.jar.location>
                 <repose.config.samples>${project.build.directory}/configs</repose.config.samples>
             </properties>
             <build>
@@ -144,6 +153,7 @@
                 <filter.dir>${project.set.dir}/components/filter-bundle/target</filter.dir>
                 <filter.extensions.dir>${project.set.dir}/extensions/extensions-filter-bundle/target
                 </filter.extensions.dir>
+
 
                 <repose.valve.jar>repose-valve.jar</repose.valve.jar>
                 <filter.ear>filter-bundle-*.ear</filter.ear>
@@ -177,6 +187,9 @@
                 </plugins>
             </build>
         </profile>
+
+
+
     </profiles>
 
 
@@ -215,7 +228,13 @@
                 </includes>
                 <targetPath>${project.build.directory}/repose_home</targetPath>
             </testResource>
-
+            <testResource>
+                <directory>${glassfish.jar.dir}</directory>
+                <includes>
+                    <include>${glassfish.jar}</include>
+                </includes>
+                <targetPath>${project.build.directory}</targetPath>
+            </testResource>
         </testResources>
 
 

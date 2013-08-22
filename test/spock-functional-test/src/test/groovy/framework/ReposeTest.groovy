@@ -17,6 +17,7 @@ abstract class ReposeTest extends Specification {
     @Shared def connFramework
 
     @Shared def ReposeLauncher repose
+
     @Shared def Deproxy deproxy
 
     @Shared def Properties properties
@@ -34,8 +35,10 @@ abstract class ReposeTest extends Specification {
         configSamples = properties.getProperty("repose.config.samples")
         reposeEndpoint = properties.getProperty("repose.endpoint")
         logFile = properties.getProperty("repose.log")
+
         connFramework = "jersey"
-        reposeContainer = properties.getProperty("repose.container")
+        if (!reposeContainer)
+            reposeContainer = properties.getProperty("repose.container")
 
         if (!reposeContainer) {
             reposeContainer = "valve"
@@ -48,10 +51,16 @@ abstract class ReposeTest extends Specification {
             case "tomcat":
                 throw new UnsupportedOperationException("Please implement me")
             case "glassfish":
-                throw new UnsupportedOperationException("Please implement me")
+                def glassfishJar = properties.getProperty("glassfish.jar")
+                configureReposeGlassfish(glassfishJar)
+                break
             default:
                 throw new UnsupportedOperationException("Unknown container: " + reposeContainer)
         }
+    }
+
+    def configureReposeGlassfish(glassfishJar) {
+        repose = ReposeGlassfishLauncher(glassfishJar)
     }
 
     def configureReposeValve() {
