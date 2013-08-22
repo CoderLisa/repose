@@ -1,12 +1,12 @@
 package features.filters.translation
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.Handling
 import org.rackspace.gdeproxy.MessageChain
 import org.rackspace.gdeproxy.Response
 
-class TranslationHeadersQueriesTest extends ReposeValveTest {
+class TranslationHeadersQueriesTest extends ReposeTest {
 
     def static String xmlPayLoad = "<a>test</a>"
     def static String rssPayload = "<a>test body</a>"

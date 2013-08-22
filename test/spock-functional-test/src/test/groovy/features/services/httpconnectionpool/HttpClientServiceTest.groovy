@@ -1,11 +1,11 @@
 package features.services.httpconnectionpool
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.MessageChain
 
 
-class HttpClientServiceTest extends ReposeValveTest {
+class HttpClientServiceTest extends ReposeTest {
 
     def setup(){
         deproxy = new Deproxy()

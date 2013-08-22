@@ -1,6 +1,6 @@
 package features.filters.normalization.uri
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.Handling
 import org.rackspace.gdeproxy.MessageChain
@@ -9,7 +9,7 @@ import spock.lang.Unroll
 /**
  * Functional test for the URI Normalization filter
  */
-class UriNormalizationFilterTest extends ReposeValveTest {
+class UriNormalizationFilterTest extends ReposeTest {
 
     def setupSpec() {
         repose.applyConfigs(

@@ -1,13 +1,10 @@
 package features.filters.headertranslation
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
-import org.rackspace.gdeproxy.Handling
-import org.rackspace.gdeproxy.HeaderCollection
 import org.rackspace.gdeproxy.MessageChain
-import org.rackspace.gdeproxy.Request
 
-class HeaderTranslationTest extends ReposeValveTest {
+class HeaderTranslationTest extends ReposeTest {
 
     def setup() {
         deproxy = new Deproxy()

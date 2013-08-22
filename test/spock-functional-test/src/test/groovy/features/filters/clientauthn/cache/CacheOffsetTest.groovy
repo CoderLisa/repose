@@ -1,14 +1,14 @@
 package features.filters.clientauthn.cache
 
 import features.filters.clientauthn.IdentityServiceResponseSimulator
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.apache.commons.lang.RandomStringUtils
 import org.joda.time.DateTime
 import org.joda.time.Period
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.MessageChain
 
-class CacheOffsetTest extends ReposeValveTest {
+class CacheOffsetTest extends ReposeTest {
 
     def identityEndpoint
 

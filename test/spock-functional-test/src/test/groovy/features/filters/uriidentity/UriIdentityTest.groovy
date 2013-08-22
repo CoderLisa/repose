@@ -1,12 +1,11 @@
 package features.filters.uriidentity
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.Handling
 import org.rackspace.gdeproxy.MessageChain
-import spock.lang.Unroll
 
-class UriIdentityTest extends ReposeValveTest {
+class UriIdentityTest extends ReposeTest {
 
     def setupSpec() {
         deproxy = new Deproxy()

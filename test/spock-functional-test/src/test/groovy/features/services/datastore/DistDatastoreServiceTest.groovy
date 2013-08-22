@@ -1,6 +1,6 @@
 package features.services.datastore
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.MessageChain
 
@@ -10,7 +10,7 @@ import org.rackspace.gdeproxy.MessageChain
  * Date: 6/26/13
  * Time: 2:45 PM
  */
-class DistDatastoreServiceTest extends ReposeValveTest {
+class DistDatastoreServiceTest extends ReposeTest {
     boolean isFailedStart = false
 
     def setup(){

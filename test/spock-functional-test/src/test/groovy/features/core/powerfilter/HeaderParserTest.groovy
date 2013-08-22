@@ -1,13 +1,11 @@
 package features.core.powerfilter
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
-import org.rackspace.gdeproxy.Header
-import org.rackspace.gdeproxy.HeaderCollection
 import org.rackspace.gdeproxy.Response
 
 
-class HeaderParserTest extends ReposeValveTest {
+class HeaderParserTest extends ReposeTest {
 
     def static String locations = "/v1/queues/mqueue/messages?ids=locationOne,locationTwo"
 

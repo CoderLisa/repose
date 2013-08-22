@@ -1,10 +1,10 @@
 package features.filters.serviceAuthentication
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.Response
 
-class ServiceAuthenticationTest extends ReposeValveTest {
+class ServiceAuthenticationTest extends ReposeTest {
 
     def handler200 = { request -> return new Response(200, "test") }
 

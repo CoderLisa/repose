@@ -1,6 +1,6 @@
 package features.filters.headertranslation
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.apache.http.HttpResponse
 import org.apache.http.client.HttpClient
 import org.apache.http.client.methods.HttpGet
@@ -10,7 +10,7 @@ import org.rackspace.gdeproxy.Request
 import org.rackspace.gdeproxy.Response
 
 
-class ReliabilityTest extends ReposeValveTest {
+class ReliabilityTest extends ReposeTest {
 
     //Start repose once for this particular translation test
     def setupSpec() {

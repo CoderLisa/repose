@@ -1,12 +1,12 @@
 package features.filters.apivalidator
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.MessageChain
 import org.rackspace.gdeproxy.Response
 import spock.lang.Ignore
 
-class ResponseCodeJMXTest extends ReposeValveTest {
+class ResponseCodeJMXTest extends ReposeTest {
 
     String PREFIX = "\"repose-node1-com.rackspace.papi\":type=\"ResponseCode\",scope=\""
 

@@ -1,12 +1,12 @@
 package features.filters.clientauthn.serviceresponse
 
 import features.filters.clientauthn.IdentityServiceResponseSimulator
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.MessageChain
 import spock.lang.Unroll
 
-class AuxiliaryErrorsTest extends ReposeValveTest {
+class AuxiliaryErrorsTest extends ReposeTest {
 
     def static originEndpoint
     def static identityEndpoint

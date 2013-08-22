@@ -1,9 +1,9 @@
 package features.services.datastore
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 
-class DistDataShutdownTest extends ReposeValveTest {
+class DistDataShutdownTest extends ReposeTest {
     def setup(){
          deproxy = new Deproxy()
          deproxy.addEndpoint(properties.getProperty("target.port").toInteger())

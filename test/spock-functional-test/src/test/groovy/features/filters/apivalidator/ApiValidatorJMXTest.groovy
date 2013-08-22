@@ -1,8 +1,9 @@
 package features.filters.apivalidator
-import framework.ReposeValveTest
+
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 
-class ApiValidatorJMXTest extends ReposeValveTest {
+class ApiValidatorJMXTest extends ReposeTest {
     String validatorBeanDomain = '\"com.rackspace.com.papi.components.checker\":*'
     String validatorClassName = "com.rackspace.com.papi.components.checker.Validator"
 

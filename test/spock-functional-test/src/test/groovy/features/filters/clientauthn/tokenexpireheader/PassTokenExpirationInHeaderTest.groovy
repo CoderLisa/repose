@@ -6,11 +6,10 @@
 package features.filters.clientauthn.tokenexpireheader;
 
 import features.filters.clientauthn.IdentityServiceResponseSimulator;
-import framework.ReposeValveTest;
+import framework.ReposeTest;
 import org.rackspace.gdeproxy.Deproxy;
 import org.rackspace.gdeproxy.MessageChain;
-import org.joda.time.DateTime;
-import java.text.SimpleDateFormat;
+import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.DateTimeZone;
@@ -52,7 +51,7 @@ Test Plan
            service
  */
 
-class PassTokenExpirationInHeaderTest extends ReposeValveTest {
+class PassTokenExpirationInHeaderTest extends ReposeTest {
 
     def originEndpoint
     def identityEndpoint

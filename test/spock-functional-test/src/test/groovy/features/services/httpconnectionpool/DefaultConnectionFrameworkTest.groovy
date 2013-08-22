@@ -1,6 +1,6 @@
 package features.services.httpconnectionpool
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import spock.lang.Unroll
 
 /**
@@ -10,7 +10,7 @@ import spock.lang.Unroll
  * This test suite is to verify that the appropriate logging is performed to indicate to a REPOSE user that their
  * intended behavior has been deprecated.
  */
-class DefaultConnectionFrameworkTest extends ReposeValveTest {
+class DefaultConnectionFrameworkTest extends ReposeTest {
 
     def setup() {
         cleanLogDirectory()

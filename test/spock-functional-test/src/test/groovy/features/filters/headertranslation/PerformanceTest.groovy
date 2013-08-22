@@ -1,14 +1,12 @@
 package features.filters.headertranslation
 
-import framework.ReposeValveTest
-import groovy.time.TimeCategory
-import groovy.time.TimeDuration
+import framework.ReposeTest
 import org.joda.time.DateTime
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.MessageChain
 
 
-class PerformanceTest extends ReposeValveTest {
+class PerformanceTest extends ReposeTest {
 
 
     def "performance test configs produce expected responses"() {

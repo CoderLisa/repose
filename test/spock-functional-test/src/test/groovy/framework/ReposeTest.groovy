@@ -9,14 +9,14 @@ import spock.lang.Specification
 import static org.linkedin.groovy.util.concurrent.GroovyConcurrentUtils.waitForCondition
 import org.rackspace.gdeproxy.MessageChain
 
-abstract class ReposeValveTest extends Specification {
+abstract class ReposeTest extends Specification {
 
     @Shared def configDirectory
     @Shared def logFile
     @Shared def configSamples
     @Shared def connFramework
 
-    @Shared def ReposeValveLauncher repose
+    @Shared def ReposeLauncher repose
     @Shared def Deproxy deproxy
 
     @Shared def Properties properties
@@ -24,6 +24,7 @@ abstract class ReposeValveTest extends Specification {
     @Shared def reposeEndpoint
 
     @Shared def ReposeLogSearch reposeLogSearch
+    @Shared String reposeContainer
 
     def setupSpec() {
         properties = new Properties()
@@ -34,9 +35,27 @@ abstract class ReposeValveTest extends Specification {
         reposeEndpoint = properties.getProperty("repose.endpoint")
         logFile = properties.getProperty("repose.log")
         connFramework = "jersey"
+        reposeContainer = properties.getProperty("repose.container")
 
+        if (!reposeContainer) {
+            reposeContainer = "valve"
+        }
+
+        switch (reposeContainer.toLowerCase()) {
+            case "valve":
+                configureReposeValve()
+                break
+            case "tomcat":
+                throw new UnsupportedOperationException("Please implement me")
+            case "glassfish":
+                throw new UnsupportedOperationException("Please implement me")
+            default:
+                throw new UnsupportedOperationException("Unknown container: " + reposeContainer)
+        }
+    }
+
+    def configureReposeValve() {
         ReposeConfigurationProvider reposeConfigProvider = new ReposeConfigurationProvider(configDirectory, configSamples)
-
         repose = new ReposeValveLauncher(
                 reposeConfigProvider,
                 properties.getProperty("repose.jar"),

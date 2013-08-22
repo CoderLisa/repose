@@ -1,8 +1,8 @@
 package features.filters.apivalidator
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 
-class SystemModelSpockTest extends ReposeValveTest {
+class SystemModelSpockTest extends ReposeTest {
 
     def setup() {
         repose.applyConfigs("features/core/system_model/dist_datastore_filter_and_service")

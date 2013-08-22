@@ -1,7 +1,7 @@
 package features.filters.clientauthn.cache
 import features.filters.clientauthn.AtomFeedResponseSimulator
 import features.filters.clientauthn.IdentityServiceResponseSimulator
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.MessageChain
 /**
@@ -79,7 +79,7 @@ import org.rackspace.gdeproxy.MessageChain
  assert response code from repose is 401
 
  */
-class InvalidateCacheUsingAtomFeedTest extends ReposeValveTest {
+class InvalidateCacheUsingAtomFeedTest extends ReposeTest {
 
     def originEndpoint
     def identityEndpoint

@@ -1,11 +1,9 @@
 package features.core.powerfilter
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
-import org.rackspace.gdeproxy.Response
 
-
-class DestinationRouterJMXTest extends ReposeValveTest{
+class DestinationRouterJMXTest extends ReposeTest{
     String PREFIX = "\"repose-node1-com.rackspace.papi.filters\":type=\"DestinationRouter\",scope=\""
 
     String NAME_TARGET = "\",name=\"endpoint\""

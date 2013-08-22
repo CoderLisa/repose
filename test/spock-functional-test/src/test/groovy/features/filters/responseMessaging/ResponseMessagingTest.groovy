@@ -1,10 +1,10 @@
 package features.filters.responsemessaging
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.Response
 
-class ResponseMessagingTest extends ReposeValveTest {
+class ResponseMessagingTest extends ReposeTest {
 
     def handler413 = { request -> return new Response(413, "test") }
 

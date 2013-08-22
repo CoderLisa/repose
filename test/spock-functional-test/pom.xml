@@ -76,9 +76,17 @@
             <scope>test</scope>
         </dependency>
 
+
     </dependencies>
 
     <profiles>
+        <profile>
+            <id>glassfish</id>
+            <properties>
+                <repose.container>glassfish</repose.container>
+            </properties>
+        </profile>
+
         <profile>
             <id>spock-local</id>
             <activation>

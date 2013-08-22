@@ -1,13 +1,12 @@
 package features.filters.headeridmapping
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.Handling
 import org.rackspace.gdeproxy.MessageChain
-import org.rackspace.gdeproxy.Response
 import spock.lang.Unroll
 
-class HeaderIdMappingTest extends ReposeValveTest {
+class HeaderIdMappingTest extends ReposeTest {
 
     def static String user1 = "reposeuser1"
     def static String user2 = "reposeuser2"

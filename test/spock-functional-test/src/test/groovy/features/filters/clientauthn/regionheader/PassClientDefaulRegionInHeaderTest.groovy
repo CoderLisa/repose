@@ -2,7 +2,7 @@
 package features.filters.clientauthn.regionheader;
 
 import features.filters.clientauthn.IdentityServiceResponseSimulator
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.MessageChain
 
@@ -42,7 +42,7 @@ Test Plan
            service
  */
 
-class PassClientDefaulRegionInHeaderTest extends ReposeValveTest {
+class PassClientDefaulRegionInHeaderTest extends ReposeTest {
 
     def originEndpoint
     def identityEndpoint

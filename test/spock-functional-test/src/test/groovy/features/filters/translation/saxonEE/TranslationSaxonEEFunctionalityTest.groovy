@@ -1,12 +1,12 @@
 package features.filters.translation.saxonEE
 
-import framework.ReposeValveTest
+import framework.ReposeTest
 import org.rackspace.gdeproxy.Deproxy
 import org.rackspace.gdeproxy.Handling
 import org.rackspace.gdeproxy.MessageChain
 import org.rackspace.gdeproxy.Response
 
-class TranslationSaxonEEFunctionalityTest extends ReposeValveTest {
+class TranslationSaxonEEFunctionalityTest extends ReposeTest {
 
     def static String xmlPayLoad = "<a>test</a>"
     def static String jsonPayload = "{\"a\":\"1\",\"b\":\"2\"}"
