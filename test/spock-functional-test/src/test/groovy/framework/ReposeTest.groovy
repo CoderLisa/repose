@@ -51,7 +51,7 @@ abstract class ReposeTest extends Specification {
             case "tomcat":
                 throw new UnsupportedOperationException("Please implement me")
             case "glassfish":
-                def glassfishJar = properties.getProperty("glassfish.jar")
+                String glassfishJar = properties.getProperty("glassfish.jar")
                 configureReposeGlassfish(glassfishJar)
                 break
             default:
@@ -59,8 +59,10 @@ abstract class ReposeTest extends Specification {
         }
     }
 
-    def configureReposeGlassfish(glassfishJar) {
-        repose = ReposeGlassfishLauncher(glassfishJar)
+    def configureReposeGlassfish(String glassfishJar) {
+        ReposeConfigurationProvider reposeConfigProvider = new ReposeConfigurationProvider(configDirectory, configSamples)
+
+        repose = new ReposeGlassfishLauncher(glassfishJar)
     }
 
     def configureReposeValve() {

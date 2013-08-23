@@ -4,18 +4,26 @@ class ReposeGlassfishLauncher extends AbstractReposeLauncher {
 
     def int shutdownPort
 
+    String configDirectory
+    String clusterId
+    String nodeId
+
     def ReposeConfigurationProvider configurationProvider
     String glassfishJar
 
-    ReposeGlassfishLauncher(String glassfishJar) {
+    ReposeGlassfishLauncher(String glassfishJar, String configDirectory, String clusterId="cluster1", String nodeId="node1") {
         this.configurationProvider = configurationProvider
         this.glassfishJar = glassfishJar
+        this.clusterId = clusterId
+        this.nodeId = nodeId
     }
 
     @Override
     void start() {
 
-        def cmd = "java -jar ${glassfishJar} -s ${shutdownPort}"
+        String webXmlOverrides = "-Dpowerapi-config-directory=${configDirectory} -Drepose-cluster-id=${clusterId} -Drepose-node-id=${nodeId}"
+
+        def cmd = "java -jar ${glassfishJar} -s ${shutdownPort} ${webXmlOverrides}"
         if (!connFramework.isEmpty()) {
             cmd = cmd + " -cf ${connFramework}"
         }
@@ -32,5 +40,10 @@ class ReposeGlassfishLauncher extends AbstractReposeLauncher {
     void stop() {
         def cmd = "java -jar ${glassfishJar} -s ${shutdownPort} stop"
         println("Stopping Glassfish: ${cmd}")
+    }
+
+    @Override
+    boolean isUp() {
+        throw new UnsupportedOperationException("implement me")
     }
 }
