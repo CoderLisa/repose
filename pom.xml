@@ -66,6 +66,11 @@
             <name>Rackspace Research</name>
             <url>http://maven.research.rackspacecloud.com/content/groups/aggregate</url>
         </repository>
+        <repository>
+            <id>typesafe</id>
+            <name>Typesafe Repository</name>
+            <url>http://repo.typesafe.com/typesafe/releases/</url>
+        </repository>
     </repositories>
     
     <distributionManagement>
